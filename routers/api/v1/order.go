@@ -1,19 +1,33 @@
 package v1
 
 import (
+	"log"
 	"net/http"
-	"webpay-rest-go/models"
+	sql "webpay-rest-go/models"
 
 	"github.com/gin-gonic/gin"
+	gonanoid "github.com/matoous/go-nanoid"
 )
 
-func GetOrders(c *gin.Context) {
-	var orders models.Order
-	result := models.Db.Find(&orders)
+func CreateOrder(c *gin.Context) {
+	id, err := gonanoid.ID(12)
+	if err != nil {
+		log.Fatal("Error in generate nanoid")
+	}
+	order := sql.Order{
+		SessionID: "s-" + id,
+		BuyOrder:  id,
+	}
 	// models.Order.
 	c.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"msg":  "success",
-		"data": result,
+		"data": order,
+	})
+}
+
+func GetOrders(c *gin.Context) {
+	orders := sql.GetOrders()
+	// models.Order.
+	c.JSON(http.StatusOK, gin.H{
+		"data": orders,
 	})
 }

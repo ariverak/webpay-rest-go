@@ -15,7 +15,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
 	router := routers.InitRouter()
 
 	s := &http.Server{
@@ -25,4 +24,5 @@ func main() {
 	}
 
 	s.ListenAndServe()
+
 }

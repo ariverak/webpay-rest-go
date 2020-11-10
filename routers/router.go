@@ -18,6 +18,7 @@ func InitRouter() *gin.Engine {
 	{
 		//get all orders
 		apiv1.GET("/orders", v1.GetOrders)
+		apiv1.POST("/orders", v1.CreateOrder)
 	}
 
 	return r

@@ -1,4 +1,4 @@
-package models
+package sql
 
 import (
 	"time"
@@ -21,4 +21,14 @@ type Order struct {
 	BillingAddress3 string
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
+}
+
+func CreateOrder(order Order) Order {
+	Db.Create(&order)
+	return order
+}
+
+func GetOrders() (orders []Order) {
+	Db.Find(&orders)
+	return orders
 }
