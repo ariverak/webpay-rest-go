@@ -46,4 +46,5 @@ func init() {
 	}
 
 	Db = _db
+	// defer _db.DB
 }

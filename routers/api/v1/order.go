@@ -1,23 +1,23 @@
 package v1
 
 import (
-	"log"
+	"fmt"
 	"net/http"
+	"time"
 	sql "webpay-rest-go/models"
 
 	"github.com/gin-gonic/gin"
-	gonanoid "github.com/matoous/go-nanoid"
 )
 
 func CreateOrder(c *gin.Context) {
-	id, err := gonanoid.ID(12)
-	if err != nil {
-		log.Fatal("Error in generate nanoid")
-	}
+
+	timestamp := fmt.Sprintf("%d", time.Now().Unix())
 	order := sql.Order{
-		SessionID: "s-" + id,
-		BuyOrder:  id,
+		SessionID: timestamp,
+		BuyOrder:  timestamp,
+		Status:    "pending",
 	}
+	sql.CreateOrder(order)
 	// models.Order.
 	c.JSON(http.StatusOK, gin.H{
 		"data": order,

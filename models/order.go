@@ -8,8 +8,8 @@ import (
 
 type Order struct {
 	ID              uint
-	SessionID       string
-	BuyOrder        string
+	SessionID       string `gorm:"size:14"`
+	BuyOrder        string `gorm:"size:12"`
 	FormAction      string
 	TokenWs         string
 	Status          string
@@ -30,5 +30,5 @@ func CreateOrder(order Order) Order {
 
 func GetOrders() (orders []Order) {
 	Db.Find(&orders)
-	return orders
+	return
 }
