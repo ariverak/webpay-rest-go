@@ -3,7 +3,9 @@ package sql
 import (
 	"fmt"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -22,13 +24,13 @@ type Config struct {
 var Db *gorm.DB
 
 func init() {
+	godotenv.Load()
 	config := Config{
-		Dialect:  "mysql",
-		DbName:   "ecommerce",
-		User:     "root",
-		Host:     "127.0.0.1",
-		Port:     "3306",
-		Password: "a78ma78ma78m",
+		DbName:   os.Getenv("DB_NAME"),
+		User:     os.Getenv("DB_USER"),
+		Host:     os.Getenv("DB_HOST"),
+		Port:     os.Getenv("DB_PORT"),
+		Password: os.Getenv("DB_PASSWORD"),
 	}
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
@@ -44,7 +46,7 @@ func init() {
 	if err != nil {
 		log.Println(err)
 	}
-
+	// sqlDB, _ := _db.DB()
 	Db = _db
-	// defer _db.DB
+	// defer sqlDB.SetMaxIdleConns(1)
 }

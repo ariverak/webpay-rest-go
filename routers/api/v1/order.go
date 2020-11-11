@@ -11,11 +11,10 @@ import (
 
 func CreateOrder(c *gin.Context) {
 
-	timestamp := fmt.Sprintf("%d", time.Now().Unix())
 	order := sql.Order{
-		SessionID: timestamp,
-		BuyOrder:  timestamp,
-		Status:    "pending",
+		SessionID: fmt.Sprintf("session-%d", time.Now().Unix()),
+		// BuyOrder:  timestamp,
+		Status: "pending",
 	}
 	sql.CreateOrder(order)
 	// models.Order.
