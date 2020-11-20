@@ -16,7 +16,9 @@ func InitRouter() *gin.Engine {
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use()
 	{
-		//get all orders
+		//Products
+		apiv1.GET("/products", v1.GetProducts)
+		//Orders
 		apiv1.GET("/orders", v1.GetOrders)
 		apiv1.POST("/orders", v1.CreateOrder)
 	}
